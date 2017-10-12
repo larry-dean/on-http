@@ -191,6 +191,36 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    post:
+      x-privileges: [ 'Login' ]
+      x-authentication-type: [ 'redfish', 'basic' ]
+      summary: post a computer systems
+      description: loads a computer systems
+      operationId: postSystems
+      tags: [ "/redfish/v1" ]
+      parameters:
+        - name: payload
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/BLAH"
+      responses:
+        202:
+          description: Success
+          schema:
+            $ref: "#/definitions/ComputerSystem.1.0.0_ComputerSystem"
+        400:
+          $ref: "#/responses/status_400"
+        401:
+          $ref: "#/responses/status_401"
+        403:
+          $ref: "#/responses/status_403"
+        404:
+          $ref: "#/responses/status_404"
+        500:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /Systems/{identifier}:
     x-swagger-router-controller: systems
     get:
@@ -8005,4 +8035,30 @@ definitions:
     - Name
     - Id
     type: object
+  BLAH:
+    properties:
+      hardware:
+        description: Link to invok1e action
+        type: object
+      boot:
+        description: Link to invoke2 action
+        type: object
+      chassis:
+        description: Link to invoke 3action
+        items:
+          type: string
+        type: array
+      secureBoot:
+        description: Friendly action 4name
+        type: boolean
+      obm:
+        description: Friendly action n5ame
+        items:
+          $ref: '#/definitions/b2'
+        type: array
+      systemType:
+        type: string
+  b2:
+    description: blah
+    type: string
 
